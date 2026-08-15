@@ -477,7 +477,7 @@ def fetch_ltp(instrument_keys, access_token):
 def display_option_chain(df, access_token):
     st.caption(f"Last Updated: {get_ist_now().strftime('%H:%M:%S')} IST")
     if df.empty:
-        st.info("No data to display. Please upload JSTT_Trigger Bhavcopy files in the sidebar.")
+        st.info("No data to display. Please upload JSTT Trigger Bhavcopy files in the sidebar.")
         return
 
     if access_token:
@@ -696,7 +696,7 @@ else:
 
         # JSTT_Trigger Uploader
         st.subheader("2. JSTT_Trigger Bhavcopy")
-        uploaded_wh = st.file_uploader("Upload JSTT_Trigger Bhavcopy (Multiple CSVs or ZIP)", type=['csv', 'zip'], accept_multiple_files=True, key='wh_sel')
+        uploaded_wh = st.file_uploader("Upload JSTT Trigger Bhavcopy (Multiple CSVs or ZIP)", type=['csv', 'zip'], accept_multiple_files=True, key='wh_sel')
         if uploaded_wh:
             csv_content, csv_name = process_uploaded_files(uploaded_wh)
             if csv_content:
