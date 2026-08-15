@@ -695,7 +695,7 @@ else:
             st.caption(f"📅 Data Date: {meta['Strike_Selection']}")
 
         # JSTT_Trigger Uploader
-        st.subheader("2. JSTT_Trigger Bhavcopy")
+        st.subheader("2. JSTT Trigger Bhavcopy")
         uploaded_wh = st.file_uploader("Upload JSTT Trigger Bhavcopy (Multiple CSVs or ZIP)", type=['csv', 'zip'], accept_multiple_files=True, key='wh_sel')
         if uploaded_wh:
             csv_content, csv_name = process_uploaded_files(uploaded_wh)
