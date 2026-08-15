@@ -477,7 +477,7 @@ def fetch_ltp(instrument_keys, access_token):
 def display_option_chain(df, access_token):
     st.caption(f"Last Updated: {get_ist_now().strftime('%H:%M:%S')} IST")
     if df.empty:
-        st.info("No data to display. Please upload JSTT_Trigger High Bhavcopy files in the sidebar.")
+        st.info("No data to display. Please upload JSTT_Trigger Bhavcopy files in the sidebar.")
         return
 
     if access_token:
@@ -505,7 +505,7 @@ def display_option_chain(df, access_token):
 
     df['ltp'] = df.apply(clean_ltp, axis=1)
 
-    # JSTT_Trigger High trigger: Priority given to 5-day MAX high calculated from uploaded Bhavcopies
+    # JSTT_Trigger : Priority given to 5-day MAX high calculated from uploaded Bhavcopies
     if 'HighPrice' in df.columns and (df['HighPrice'] > 0).any():
         df['Trigger'] = df['HighPrice']
     else:
@@ -527,7 +527,7 @@ def display_option_chain(df, access_token):
     df['change_val'] = df.apply(calculate_numeric_change, axis=1)
     df['change %'] = df['change_val']
 
-    trigger_col_name = 'JSTT_Trigger High'
+    trigger_col_name = 'JSTT Trigger'
     df = df.rename(columns={'Trigger': trigger_col_name})
 
     # Filter Controls
@@ -615,12 +615,12 @@ if logo_base64:
     <div style="display: flex; align-items: center; gap: 16px; margin-top: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap;">
         <img src="data:image/png;base64,{logo_base64}" style="height: 52px; max-height: 52px; width: auto; object-fit: contain; vertical-align: middle; flex-shrink: 0;" />
         <h1 style="margin: 0; padding: 0; color: #1e3a8a; font-size: 1.9rem; font-weight: 700; line-height: 1.3; display: inline-block;">
-            JSTT JSTT_Trigger High Scanner
+            JSTT Option Scanner
         </h1>
     </div>
     """, unsafe_allow_html=True)
 else:
-    st.title("JSTT JSTT_Trigger High Scanner")
+    st.title(" JSTT Option Scanner ")
 
 # Secret Handling (Client View Mode)
 is_client_view = "UPSTOX_ACCESS_TOKEN" in st.secrets
@@ -694,9 +694,9 @@ else:
         if 'Strike_Selection' in meta and os.path.exists(FILES['Strike_Selection']):
             st.caption(f"📅 Data Date: {meta['Strike_Selection']}")
 
-        # JSTT_Trigger High Uploader
-        st.subheader("2. JSTT_Trigger High Bhavcopy")
-        uploaded_wh = st.file_uploader("Upload JSTT_Trigger High Bhavcopy (Multiple CSVs or ZIP)", type=['csv', 'zip'], accept_multiple_files=True, key='wh_sel')
+        # JSTT_Trigger Uploader
+        st.subheader("2. JSTT_Trigger Bhavcopy")
+        uploaded_wh = st.file_uploader("Upload JSTT_Trigger Bhavcopy (Multiple CSVs or ZIP)", type=['csv', 'zip'], accept_multiple_files=True, key='wh_sel')
         if uploaded_wh:
             csv_content, csv_name = process_uploaded_files(uploaded_wh)
             if csv_content:
@@ -704,7 +704,7 @@ else:
                     f.write(csv_content)
                 if csv_name:
                     save_meta('JSTT_Trigger', csv_name)
-                st.success(f"JSTT_Trigger High file updated from {csv_name}!")
+                st.success(f"JSTT_Trigger file updated from {csv_name}!")
 
         if 'JSTT_Trigger' in meta and os.path.exists(FILES['JSTT_Trigger']):
             st.caption(f"📅 Data Date: {meta['JSTT_Trigger']}")
@@ -720,7 +720,7 @@ if not nse_json_df.empty:
     run_every = refresh_interval if auto_refresh else None
     strike_file = FILES.get('Strike_Selection') if os.path.exists(FILES.get('Strike_Selection', '')) else None
 
-    if os.path.exists(FILES['JSTT_Trigger']):
+    if os.path.exists(FILES['JSTT Trigger']):
         @st.fragment(run_every=run_every)
         def show_JSTT_Trigger():
             df_wh, target_exp, all_exps = process_bhavcopy(FILES['JSTT_Trigger'], nse_json_df, target_expiry_index=target_expiry_idx, strike_bhav_file=strike_file)
@@ -729,7 +729,7 @@ if not nse_json_df.empty:
             display_option_chain(df_wh, access_token)
         show_JSTT_Trigger()
     else:
-        st.warning("JSTT_Trigger High Bhavcopy file not found. Please upload 'JSTT_Trigger High Bhavcopy' (CSV/ZIP) in the sidebar.")
+        st.warning("JSTT Trigger Bhavcopy file not found. Please upload 'JSTT Trigger Bhavcopy' (CSV/ZIP) in the sidebar.")
 else:
     st.error("Critical Error: NSE.json could not be loaded.")
 
