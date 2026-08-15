@@ -720,7 +720,7 @@ if not nse_json_df.empty:
     run_every = refresh_interval if auto_refresh else None
     strike_file = FILES.get('Strike_Selection') if os.path.exists(FILES.get('Strike_Selection', '')) else None
 
-    if os.path.exists(FILES['JSTT Trigger']):
+    if os.path.exists(FILES['JSTT_Trigger']):
         @st.fragment(run_every=run_every)
         def show_JSTT_Trigger():
             df_wh, target_exp, all_exps = process_bhavcopy(FILES['JSTT_Trigger'], nse_json_df, target_expiry_index=target_expiry_idx, strike_bhav_file=strike_file)
